@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+      <p><b style="font-size: x-large;">완료됐어요!</b></p>
+        <table class="table table-hover">
+          <tbody>
+            {% if past %}
+            {% for schedule in past %}
+            <tr>
+              <td><div style="font-size: larger;">📚 {{ schedule.title }}</div>
+                  <div style="margin-left: 30;"><b style="color: pink;">{{ schedule.writer.nickname }}</b>님이 완독하였습니다</div>
+                  <div style="font-size: smaller; margin-left: 30;">⋆⁺₊⋆ {{ schedule.contents }}</div>
+                  <div style="font-size: small; margin-left: 30;">{{ schedule.start_date|date:'Y년 m월 d일' }} ~ {{ schedule.end_date|date:'Y년 m월 d일' }}</div>
+                  {% if user == schedule.writer_id %}
+                  <br>
+                  <div style="text-align: center;">
+                    <a href="{{schedule.id}}/modify", target="_self"><button class="btn" style="background-color: palevioletred; color: white;">수정</button></a>
+                    <a href="{{schedule.id}}/delete", target="_self"><button class="btn" style="background-color: palevioletred; color: white;">삭제</button></a>
+                  </div>
+                  {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td><div style="font-size: larger; text-align: center;">일정이 없어요 😂</div>
+              </td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-4">
+        <p><b style="font-size: x-large;">진행중이에요!</b></p>
+        <table class="table table-hover">
+          <tbody>
+            {% if now %}
+            {% for schedule in now %}
+            <tr>
+              <td><div style="font-size: larger;">📚 {{ schedule.title }}</div>
+                  <div style="margin-left: 30;"><b style="color: pink;">{{ schedule.writer.nickname }}</b>님이 읽고 있습니다</div>
+                  <div style="font-size: smaller; margin-left: 30">⋆⁺₊⋆ {{ schedule.contents }}</div>
+                  <div style="font-size: small; margin-left: 30;">{{ schedule.start_date|date:'Y년 m월 d일' }} ~ {{ schedule.end_date|date:'Y년 m월 d일' }}</div>
+                  {% if user == schedule.writer_id %}
+                  <br>
+                  <div style="text-align: center;">
+                    <a href="{{schedule.id}}/modify", target="_self"><button class="btn" style="background-color: palevioletred; color: white;">수정</button></a>
+                    <a href="{{schedule.id}}/delete", target="_self"><button class="btn" style="background-color: palevioletred; color: white;">삭제</button></a>
+                  </div>
+                  {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td><div style="font-size: larger; text-align: center;">일정이 없어요 😂</div>
+              </td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-4">
+        <p><b style="font-size: x-large;">예정됐어요!</b></p>
+        <table class="table table-hover">
+          <tbody>
+            {% if future %}
+            {% for schedule in future %}
+            <tr>
+              <td><div style="font-size: larger;">📚 {{ schedule.title }}</div>
+                  <div style="margin-left: 30;"><b style="color: pink;">{{ schedule.writer.nickname }}</b>님이 읽을 예정이에요</div>
+                  <div style="font-size: smaller; margin-left: 30">⋆⁺₊⋆ {{ schedule.contents }}</div>
+                  <div style="font-size: small; margin-left: 30;">{{ schedule.start_date|date:'Y년 m월 d일' }} ~ {{ schedule.end_date|date:'Y년 m월 d일' }}</div>
+                  {% if user == schedule.writer_id %}
+                  <br>
+                  <div style="text-align: center;">
+                    <a href="{{schedule.id}}/modify", target="_self"><button class="btn" style="background-color: palevioletred; color: white;">수정</button></a>
+                    <a href="{{schedule.id}}/delete", target="_self"><button class="btn" style="background-color: palevioletred; color: white;">삭제</button></a>
+                  </div>
+                  {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td><div style="font-size: larger; text-align: center;">일정이 없어요 😂</div>
+              </td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <br>
+  {% if login_session %}
+  <div class="row">
+    <div class="col-12">
+        <a href="{% url 'schedule_write' %}"><button class="btn" style="background-color: palevioletred; color: white;">등록하기</button></a>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

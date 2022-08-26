@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-12">
+      <div class="form-group">
+        <label for="title">제목</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          value="{{ board.title }}"
+          readonly
+        />
+        <label for="write_date">작성일자</label>
+        <input
+          type="text"
+          class="form-control"
+          id="write_date"
+          value="{{ board.write_date }}"
+          readonly
+        />
+        <label for="nickname">작성자</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nickname"
+          value="{{ board.writer.nickname }}"
+          readonly
+        />
+        <label for="hits">조회수</label>
+        <input
+          type="text"
+          class="form-control"
+          id="hits"
+          value="{{ board.hits }}"
+          readonly
+        />
+        <label for="contents">내용</label>
+        <div style="background: rgb(214, 192, 232);">{{ board.contents |safe }}</div>
+        {{ scope }}
+      </div>
+      {% if writer %}
+        <a href="/review/detail/{{board.bno}}/modify/"><button class="btn btn-primary">수정</button></a>
+        <a href="/review/detail/{{board.bno}}/delete/"><button class="btn btn-primary">삭제</button></a>
+      {% endif %}
+      <button class="btn btn-primary" onClick="history.back();return false;">목록으로</button>
+    </div>
+  </div>
+{% endblock %}
